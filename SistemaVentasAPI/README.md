@@ -1,6 +1,6 @@
 ﻿🚀 SistemaVentas API - Backend
 
-Esta es la API robusta del Sistema de Ventas InVortex, construida bajo los principios de Clean Architecture y Domain-Driven Design (DDD) para garantizar un sistema escalable, mantenible y altamente desacoplado.
+Esta es la API robusta del Sistema de Ventas, construida bajo los principios de Clean Architecture y Domain-Driven Design (DDD) para garantizar un sistema escalable, mantenible y altamente desacoplado.
 🛠️ Stack Tecnológico
 
     Framework: .NET 8 (ASP.NET Core)
