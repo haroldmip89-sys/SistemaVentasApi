@@ -1,0 +1,48 @@
+# =========================
+# Visual Studio / .NET
+# =========================
+
+# Ignorar carpetas de compilación en cualquier nivel del proyecto
+**/bin/
+**/obj/
+**/out/
+
+# Visual Studio / Rider
+.vs/
+.idea/
+*.user
+*.userosscache
+*.sln.docstates
+*.vsidx
+
+# NuGet
+packages/
+*.nupkg
+# No ignorar el archivo de configuración de NuGet si lo tuvieras
+!nuget.config
+
+# =========================
+# Publicación y Logs
+# =========================
+publish/
+*.log
+
+# =========================
+# Archivos de configuración (SEGURIDAD)
+# =========================
+# Ignoramos el appsettings.json porque tiene credenciales locales y de SMTP
+appsettings.json
+appsettings.Development.json
+secrets.json
+
+# =========================
+# Archivos del Sistema Operativo
+# =========================
+Thumbs.db
+.DS_Store
+
+# =========================
+# NOTA SOBRE MIGRACIONES
+# =========================
+# Las migraciones NO se ignoran. 
+# Si tenías "Migrations/" aquí, bórralo para que se suban a GitHub.
