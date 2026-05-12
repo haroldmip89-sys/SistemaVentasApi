@@ -39,22 +39,32 @@ namespace Ventas.Infraestructura.Services
 
             try
             {
-                // En Vercel/Producción usamos SecureSocketOptions.StartTls para el puerto 587
+                // 1. Determinar el puerto y la opción de seguridad
+                int port = int.Parse(_config["SmtpSettings:Port"]);
+
+                // Si el puerto es 465, usamos SslOnConnect (SSL puro)
+                // Si es 587, usamos StartTls
+                var securityOption = port == 465
+                    ? SecureSocketOptions.SslOnConnect
+                    : SecureSocketOptions.StartTls;
+
+                // 2. Añadir un Timeout explícito corto para no bloquear el Handler demasiado tiempo
+                client.Timeout = 15000; // 15 segundos
+
                 await client.ConnectAsync(
                     _config["SmtpSettings:Server"],
-                    int.Parse(_config["SmtpSettings:Port"]),
-                    SecureSocketOptions.StartTls
+                    port,
+                    securityOption
                 );
 
-                // Autenticación con la contraseña de aplicación de Google
                 await client.AuthenticateAsync(_config["SmtpSettings:SenderEmail"], _config["SmtpSettings:Password"]);
-
                 await client.SendAsync(message);
             }
             catch (Exception ex)
             {
-                // Loguear el error (importante para depurar en Vercel)
-                Console.WriteLine($"Error al enviar correo: {ex.Message}");
+                Console.WriteLine($"Error crítico en EmailService: {ex.Message}");
+                // No lanzamos la excepción aquí si no queremos que rompa el flujo del Handler,
+                // pero como tu Handler ya tiene un try-catch, está bien hacer el throw.
                 throw;
             }
             finally
